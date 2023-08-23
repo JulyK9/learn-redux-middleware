@@ -38,3 +38,5 @@ export default function counter(state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+export const selectNumber = (state) => state.counter;
