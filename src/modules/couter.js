@@ -14,6 +14,15 @@ export const decrease = () => {
   return { type: DECREASE };
 };
 
+// thunk 함수 생성
+export const increaseAsync = () => (dispatch) => {
+  setTimeout(() => dispatch(increase()), 1000);
+};
+
+export const decreaseAsync = () => (dispatch) => {
+  setTimeout(() => dispatch(decrease()), 1000);
+};
+
 // 초기값 설정
 const INITIAL_STATE = 0;
 
