@@ -1,5 +1,9 @@
 import * as postAPI from '../api/posts'; // api/posts 안의 함수 모두 불러오기
-import { createPromiseThunk, reducerUtils } from '../lib/asyncUtils';
+import {
+  createPromiseThunk,
+  handleAsyncActions,
+  reducerUtils,
+} from '../lib/asyncUtils';
 
 // 액션 타입
 
@@ -60,65 +64,17 @@ const initialState = {
 const posts = (state = initialState, action) => {
   switch (action.type) {
     case GET_POSTS:
-      return {
-        ...state,
-        // posts: {
-        //   loading: true,
-        //   data: null,
-        //   error: null,
-        // },
-        posts: reducerUtils.loading(),
-      };
     case GET_POSTS_SUCCESS:
-      return {
-        ...state,
-        // posts: {
-        //   loading: true,
-        //   data: action.posts,
-        //   error: null,
-        // },
-        posts: reducerUtils.success(action.payload),
-      };
     case GET_POSTS_ERROR:
-      return {
-        ...state,
-        // posts: {
-        //   loading: true,
-        //   data: null,
-        //   error: action.error,
-        // },
-        posts: reducerUtils.error(action.error),
-      };
+      // const postsReducer = handleAsyncActions(GET_POSTS, 'posts');
+      // return postsReducer(state, action)
+      return handleAsyncActions(GET_POSTS, 'posts')(state, action);
     case GET_POST:
-      return {
-        ...state,
-        // post: {
-        //   loading: true,
-        //   data: null,
-        //   error: null,
-        // },
-        posts: reducerUtils.loading(),
-      };
     case GET_POST_SUCCESS:
-      return {
-        ...state,
-        // post: {
-        //   loading: true,
-        //   data: action.post,
-        //   error: null,
-        // },
-        post: reducerUtils.success(action.payload),
-      };
     case GET_POST_ERROR:
-      return {
-        ...state,
-        // post: {
-        //   loading: true,
-        //   data: null,
-        //   error: action.error,
-        // },
-        post: reducerUtils.error(action.error),
-      };
+      // const postReducer = handleAsyncActions(GET_POST, 'post');
+      // return postReducer(state, action);
+      return handleAsyncActions(GET_POST, 'post')(state, action);
     default:
       return state;
   }
